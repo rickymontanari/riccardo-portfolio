@@ -1,0 +1,111 @@
+/* ==========================================================================
+   PROJECT HERO
+========================================================================== */
+
+.project-hero {
+  padding: 180px 0 120px;
+}
+
+.project-hero .container {
+  max-width: 960px;
+}
+
+.back-link {
+  display: inline-block;
+
+  margin-bottom: 32px;
+
+  text-decoration: none;
+
+  color: var(--clr-text-light);
+
+  transition: var(--transition);
+}
+
+.back-link:hover {
+  color: var(--clr-text);
+}
+
+.project-hero h1 {
+  max-width: none;
+
+  font-size: clamp(4.5rem, 9vw, 7rem);
+
+  line-height: 0.9;
+
+  letter-spacing: -0.05em;
+
+  margin-bottom: 32px;
+}
+
+.project-intro {
+  max-width: 760px;
+
+  margin-bottom: 64px;
+
+  font-size: 1.125rem;
+
+  line-height: 1.8;
+
+  color: var(--clr-text-light);
+}
+
+.hero-image {
+  width: 100%;
+
+  display: block;
+
+  border-radius: 24px;
+}
+
+/* ==========================================================================
+   PROJECT SECTIONS
+========================================================================== */
+
+.project-section {
+  padding: 120px 0;
+}
+
+.project-section .container {
+  max-width: 960px;
+}
+
+.section-label {
+  display: inline-block;
+
+  margin-bottom: 16px;
+
+  font-size: 0.85rem;
+
+  font-weight: 600;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+
+  color: var(--clr-accent);
+}
+
+.project-section h2 {
+  max-width: 700px;
+
+  margin-bottom: 24px;
+}
+
+.section-text {
+  max-width: 760px;
+
+  margin-bottom: 56px;
+
+  line-height: 1.8;
+
+  color: var(--clr-text-light);
+}
+
+.project-image {
+  width: 100%;
+
+  display: block;
+
+  border-radius: 20px;
+}
