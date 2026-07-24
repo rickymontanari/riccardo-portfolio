@@ -40,8 +40,7 @@
 
 .project-intro {
   max-width: 760px;
-
-  margin-bottom: 64px;
+  margin-bottom: 24px;
 
   font-size: 1.125rem;
 
@@ -105,7 +104,56 @@
 .project-image {
   width: 100%;
 
+  height: auto;
+
   display: block;
 
+  aspect-ratio: auto;
+
+  object-fit: contain;
+
   border-radius: 20px;
+
+  overflow: visible;
+}
+.project-section h3 {
+  font-size: 2rem;
+
+  margin-bottom: 20px;
+
+  font-weight: 700;
+}
+.project-section h2.full-width-title {
+  max-width: none;
+}
+.project-subsection {
+  padding: 72px 0;
+}
+/* ==========================================
+   PANZA GALLERY
+========================================== */
+
+.project-gallery {
+  max-width: 960px;
+  margin: 0 auto 120px;
+}
+
+.project-gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  border-radius: 0;
+}
+
+/* Prima immagine */
+.project-gallery img:first-child {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+/* Ultima immagine */
+.project-gallery img:last-child {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
 }

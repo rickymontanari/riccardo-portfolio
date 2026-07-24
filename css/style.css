@@ -408,21 +408,16 @@ section {
 ========================================================================== */
 
 #hero {
-  min-height: 100svh;
-
-  display: grid;
-
+  min-height: 80svh;
+  display: flex;
   align-items: center;
+  padding: 120px 0 70px;
 }
 
 .hero-content {
   display: grid;
-
   gap: 2rem;
-
   max-width: 820px;
-
-  padding-top: 88px;
 }
 
 .hero-content h1 {
@@ -527,6 +522,8 @@ section {
 
 #work {
   background: var(--clr-background);
+  scroll-margin-top: 90px;
+  padding-top: 5rem;
 }
 
 .work-filter {
@@ -1048,4 +1045,25 @@ a {
 
 .contact-links a:hover::after {
   transform: scaleX(1);
+}
+/* ==========================
+   RESUME BUTTON
+========================== */
+
+.resume-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  text-decoration: none;
+  color: #111;
+  font-weight: 500;
+}
+
+.resume-button span {
+  transition: transform 0.3s ease;
+}
+
+.resume-button:hover span {
+  transform: translateY(6px);
 }

@@ -4,38 +4,52 @@
 ========================================================== */
 
 /* ==========================================================
-   SELECTORS
+   GLOBAL VARIABLES
 ========================================================== */
 
-const header = document.querySelector(".header");
+let header;
+let sections;
+let navLinks;
+let filterButtons;
+let projectCards;
+let revealElements;
+let heroLink;
 
-const sections = document.querySelectorAll("section");
+/* ==========================================================
+   INITIALIZE SELECTORS
+========================================================== */
 
-const navLinks = document.querySelectorAll(".nav-links a");
+function initSelectors() {
+  header = document.querySelector(".header");
 
-const filterButtons = document.querySelectorAll(".work-filter button");
+  sections = document.querySelectorAll("section");
 
-const projectCards = document.querySelectorAll(".project-card");
+  navLinks = document.querySelectorAll(".nav-links a");
 
-const revealElements = document.querySelectorAll(
-  ".section-heading, .project-card, #about .container, #contact .container",
-);
+  filterButtons = document.querySelectorAll(".work-filter button");
+
+  projectCards = document.querySelectorAll(".project-card");
+
+  revealElements = document.querySelectorAll(
+    ".section-heading, .project-card, #about .container, #contact .container",
+  );
+
+  heroLink = document.querySelector(".hero-link");
+}
 
 /* ==========================================================
    HEADER SCROLL
 ========================================================== */
 
 function handleHeader() {
+  if (!header) return;
+
   if (window.scrollY > 40) {
     header.classList.add("scrolled");
   } else {
     header.classList.remove("scrolled");
   }
 }
-
-window.addEventListener("scroll", handleHeader);
-
-handleHeader();
 
 /* ==========================================================
    REVEAL ON SCROLL
@@ -44,116 +58,157 @@ handleHeader();
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("show");
-        entry.target.classList.add("visible");
-      }
+      if (!entry.isIntersecting) return;
+
+      entry.target.classList.add("show");
+      entry.target.classList.add("visible");
     });
   },
-
   {
     threshold: 0.15,
   },
 );
 
-revealElements.forEach((element) => {
-  observer.observe(element);
-});
+function initReveal() {
+  revealElements.forEach((element) => {
+    observer.observe(element);
+  });
+}
 
 /* ==========================================================
    FILTER PROJECTS
 ========================================================== */
 
-filterButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    filterButtons.forEach((btn) => {
-      btn.classList.remove("active");
-    });
+function initFilters() {
+  if (!filterButtons.length) return;
 
-    button.classList.add("active");
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      filterButtons.forEach((btn) => {
+        btn.classList.remove("active");
+      });
 
-    const filter = button.dataset.filter;
+      button.classList.add("active");
 
-    projectCards.forEach((card) => {
-      if (filter === "all") {
-        card.style.display = "flex";
+      const filter = button.dataset.filter;
 
-        return;
-      }
+      projectCards.forEach((card) => {
+        if (filter === "all") {
+          card.style.display = "flex";
+          return;
+        }
 
-      if (card.classList.contains(filter)) {
-        card.style.display = "flex";
-      } else {
-        card.style.display = "none";
-      }
+        if (card.classList.contains(filter)) {
+          card.style.display = "flex";
+        } else {
+          card.style.display = "none";
+        }
+      });
     });
   });
-});
-
+}
 /* ==========================================================
    ACTIVE NAVIGATION
 ========================================================== */
 
-window.addEventListener("scroll", () => {
+function updateActiveNavigation() {
+  if (!sections.length || !navLinks.length) return;
+
   let current = "";
 
   sections.forEach((section) => {
     const top = section.offsetTop - 140;
 
     if (window.scrollY >= top) {
-      current = section.getAttribute("id");
+      current = section.id;
     }
   });
 
   navLinks.forEach((link) => {
     link.classList.remove("active");
 
-    if (link.getAttribute("href") === "#" + current) {
+    const href = link.getAttribute("href");
+
+    if (href === "#" + current) {
       link.classList.add("active");
     }
   });
-});
+}
+
+function initActiveNavigation() {
+  window.addEventListener("scroll", updateActiveNavigation);
+
+  updateActiveNavigation();
+}
 
 /* ==========================================================
    SMOOTH SCROLL
 ========================================================== */
 
-navLinks.forEach((link) => {
-  link.addEventListener("click", (event) => {
-    event.preventDefault();
+function initSmoothScroll() {
+  if (!navLinks.length) return;
 
-    const target = document.querySelector(link.getAttribute("href"));
+  navLinks.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const href = link.getAttribute("href");
 
-    if (!target) return;
+      if (!href.startsWith("#")) {
+        return;
+      }
 
-    const offset = 80;
+      const target = document.querySelector(href);
 
-    const position = target.offsetTop - offset;
+      if (!target) return;
 
-    window.scrollTo({
-      top: position,
+      event.preventDefault();
 
-      behavior: "smooth",
+      window.scrollTo({
+        top: target.offsetTop - 80,
+        behavior: "smooth",
+      });
     });
   });
-});
+}
 
 /* ==========================================================
    HERO LINK
 ========================================================== */
 
-const heroLink = document.querySelector(".hero-link");
+function initHeroLink() {
+  if (!heroLink) return;
 
-if (heroLink) {
   heroLink.addEventListener("click", (event) => {
     event.preventDefault();
 
     const target = document.querySelector("#work");
 
+    if (!target) return;
+
     window.scrollTo({
       top: target.offsetTop - 80,
-
       behavior: "smooth",
     });
   });
+}
+
+/* ==========================================================
+   INITIALIZATION
+========================================================== */
+
+function initPortfolio() {
+  initSelectors();
+
+  handleHeader();
+
+  window.addEventListener("scroll", handleHeader);
+
+  initReveal();
+
+  initFilters();
+
+  initActiveNavigation();
+
+  initSmoothScroll();
+
+  initHeroLink();
 }
